@@ -34,3 +34,53 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deployment
+
+### Run with Node (Production)
+
+```bash
+npm ci --no-audit --no-fund
+npm run build
+npm run start -- -p 3000
+```
+
+- The app will start on `http://localhost:3000` by default.
+- Set `PORT` to change the listening port.
+
+### Docker
+
+This project includes a multi-stage `Dockerfile` optimized for Next.js standalone output.
+
+Build the image:
+
+```bash
+docker build -t tatka_test:latest .
+```
+
+Run the container:
+
+```bash
+docker run --rm -p 3000:3000 tatka_test:latest
+```
+
+### Vercel
+
+- Push this repository to GitHub/GitLab/Bitbucket
+- Import the project in Vercel and use the default Next.js preset
+- No special configuration is required (standalone output is supported)
+
+### Environment Variables
+
+The baseline app does not require environment variables. If you add features that need them (e.g., database or auth), create a `.env.local` with your keys. Common examples:
+
+```bash
+# MONGODB_URI=
+# NEXTAUTH_URL=
+# NEXTAUTH_SECRET=
+```
+
+### Notes
+
+- `next.config.ts` sets `output: 'standalone'` for smaller Docker images.
+- Tailwind CSS v4 is enabled via `postcss.config.mjs` and `app/globals.css`.
